@@ -51,14 +51,16 @@ int bombtick = 300;
 
 int ledState1 = LOW;
 unsigned long previousMillis1 = 0;
-long OnTime1 = 1000;
-long OffTime1 = 150;
+long OnTime1 = 2000;
+long OffTime1 = 100;
 
 int ledState2 = LOW;
 unsigned long previousMillis2 = 0;
 long OnTime2 = 500;
-long OffTime2 = 21000;
+long OffTime2 = 6000;
 
+long BombDelay = 0;
+unsigned long PrevBomb = 0;
 
 
 
@@ -105,6 +107,7 @@ void shots(){
   }
 }
 
+
 void bomb(){
   strip.setPixelColor(5, BLACK);
   strip.setPixelColor(6, BLACK);
@@ -118,6 +121,42 @@ void bomb(){
   }
 }
 
+void bob(){
+  strip.setPixelColor(5, BLACK); 
+  strip.setPixelColor(6, BLACK);
+  strip.setPixelColor(7, BLACK);
+  strip.setPixelColor(8, BLACK);
+  strip.setPixelColor(9, BLACK);
+  
+  unsigned long bobclock = millis();
+  unsigned long clockdiff = 100;
+  
+  if (bobclock - BombDelay >= PrevBomb){
+    strip.setPixelColor(5, GREEN);
+    strip.show();
+    PrevBomb = bobclock;
+    if (bobclock - BombDelay >= PrevBomb){
+      strip.setPixelColor(6, GREEN);
+      strip.show();
+      PrevBomb = bobclock;
+      if (bobclock - BombDelay >= PrevBomb){
+        strip.setPixelColor(7, GREEN);
+        strip.show();
+        PrevBomb = bobclock;
+        if (bobclock - BombDelay >= PrevBomb){
+          strip.setPixelColor(8, GREEN);
+          strip.show();
+          PrevBomb = bobclock;
+          if (bobclock - BombDelay >= PrevBomb){
+            strip.setPixelColor(9, GREEN);
+            strip.show();
+            PrevBomb = bobclock;
+          }
+        }
+      }
+    }  
+  }
+}
 
 
 
@@ -150,8 +189,6 @@ void loop()
     bomb();
   }
 }
-
-
 
 
 
